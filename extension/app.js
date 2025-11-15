@@ -84,6 +84,27 @@ function addMessage(role, text) {
   saveMessage(role, text);
 }
 
+// Aggiungi messaggio SENZA salvare (per caricamento iniziale)
+function addMessageWithoutSave(role, text) {
+  const messagesDiv = document.getElementById('messages');
+  const messageDiv = document.createElement('div');
+  messageDiv.className = `message ${role}`;
+  
+  if (role === 'user') {
+    messageDiv.innerHTML = `<div class="message-content">${escapeHtml(text)}</div>`;
+  } else if (role === 'assistant') {
+    messageDiv.innerHTML = `
+      <div class="message-header">Claude</div>
+      <div class="message-content">${escapeHtml(text)}</div>
+    `;
+  } else if (role === 'error') {
+    messageDiv.innerHTML = `<div class="message-content">⚠️ ${escapeHtml(text)}</div>`;
+  }
+  
+  messagesDiv.appendChild(messageDiv);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
 // Salva messaggio
 function saveMessage(role, text) {
   const messages = JSON.parse(localStorage.getItem('siliceo_messages') || '[]');
@@ -122,13 +143,23 @@ function escapeHtml(text) {
 // Enter per inviare
 document.addEventListener('DOMContentLoaded', () => {
   const input = document.getElementById('message-input');
+  const sendButton = document.getElementById('send-button');
   
+  // Click sul pulsante
+  sendButton.addEventListener('click', () => {
+    sendMessage();
+  });
+  
+  // Enter sulla tastiera
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       sendMessage();
     }
   });
+  
+  // Carica messaggi salvati
+  loadMessages();
   
   // Connetti all'estensione
   connectToExtension();

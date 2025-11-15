@@ -6,107 +6,146 @@
 
 console.log('🏛️ Siliceo Bridge attivo su claude.ai');
 
-// Selettori per elementi di Claude.ai
-const SELECTORS = {
-  textarea: 'div[contenteditable="true"]',
-  sendButton: 'button[aria-label="Send Message"]',
-  messages: '[data-testid="conversation-turn"]'
-};
-
 // Invia messaggio a Claude
 function sendMessageToClaude(text) {
-  const textarea = document.querySelector(SELECTORS.textarea);
+  const textarea = document.querySelector('div[contenteditable="true"]');
   
   if (!textarea) {
     console.error('❌ Textarea non trovata');
     return false;
   }
   
-  // Inserisci testo
   textarea.focus();
   textarea.innerText = text;
   
-  // Trigger eventi
   const inputEvent = new Event('input', { bubbles: true });
   textarea.dispatchEvent(inputEvent);
   
-  // Clicca pulsante Invio
   setTimeout(() => {
-    const buttons = document.querySelectorAll('button');
     let sendButton = null;
     
-    buttons.forEach(btn => {
-      if (btn.getAttribute('aria-label')?.includes('Send') || 
-          btn.innerText?.includes('Send')) {
-        sendButton = btn;
+    // Metodo 1: aria-label
+    sendButton = document.querySelector('button[aria-label*="Send"]');
+    
+    // Metodo 2: testo del button
+    if (!sendButton) {
+      const buttons = document.querySelectorAll('button');
+      for (const btn of buttons) {
+        const btnText = btn.innerText?.toLowerCase() || '';
+        const ariaLabel = btn.getAttribute('aria-label')?.toLowerCase() || '';
+        
+        if (btnText.includes('send') || ariaLabel.includes('send') || 
+            btnText.includes('invia') || ariaLabel.includes('invia')) {
+          sendButton = btn;
+          break;
+        }
       }
-    });
+    }
+    
+    // Metodo 3: ultimo button vicino textarea
+    if (!sendButton) {
+      const parent = textarea.closest('form, div[class*="input"]');
+      if (parent) {
+        const buttons = parent.querySelectorAll('button:not([disabled])');
+        sendButton = buttons[buttons.length - 1];
+      }
+    }
+    
+    // Metodo 4: cerca per SVG (icona send)
+    if (!sendButton) {
+      const allButtons = document.querySelectorAll('button');
+      for (const btn of allButtons) {
+        const svg = btn.querySelector('svg');
+        if (svg && !btn.disabled) {
+          sendButton = btn;
+          break;
+        }
+      }
+    }
     
     if (sendButton && !sendButton.disabled) {
       sendButton.click();
       console.log('✅ Messaggio inviato a Claude');
-      return true;
     } else {
       console.error('❌ Pulsante Invio non trovato');
-      return false;
+      console.log('📋 Debug - textarea trovata:', !!textarea);
+      console.log('📋 Debug - bottoni totali:', document.querySelectorAll('button').length);
     }
-  }, 200);
+  }, 800); // Aumento timeout a 800ms
 }
 
-// Cattura risposta di Claude
-let lastResponseText = '';
-
-function captureClaudeResponse() {
-  const messages = document.querySelectorAll('[data-testid="conversation-turn"]');
-  if (messages.length === 0) return null;
-  
-  const lastMessage = messages[messages.length - 1];
-  const isAssistant = lastMessage.querySelector('[data-testid="message-author"]')?.innerText?.toLowerCase().includes('claude');
-  
-  if (isAssistant) {
-    const text = lastMessage.innerText;
-    if (text && text !== lastResponseText) {
-      lastResponseText = text;
-      return text;
-    }
-  }
-  
-  return null;
-}
-
-// Osserva DOM per nuovi messaggi
-const observer = new MutationObserver(() => {
-  const response = captureClaudeResponse();
-  if (response) {
-    chrome.runtime.sendMessage({
-      type: 'CLAUDE_RESPONSE',
-      text: response,
-      timestamp: Date.now()
-    });
-    console.log('📨 Risposta catturata');
-  }
-});
-
-observer.observe(document.body, { 
-  childList: true, 
-  subtree: true 
-});
-
-// Gestione messaggi dall'estensione
+// Gestione messaggi dal background
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.type === 'SEND_TO_CLAUDE') {
     sendMessageToClaude(request.message);
     sendResponse({ success: true });
   }
-  
-  if (request.type === 'GET_STATUS') {
-    sendResponse({ 
-      connected: true,
-      url: window.location.href
-    });
-  }
-  
   return true;
 });
 
 console.log('✅ Content script pronto');
+
+// Observer OTTIMIZZATO - cattura SOLO nuove risposte
+console.log('🔍 Avvio observer ottimizzato v3...');
+
+let lastCapturedText = '';
+let lastMessageCount = 0; // Traccia il numero di messaggi
+let processingResponse = false;
+
+const observer = new MutationObserver((mutations) => {
+  if (processingResponse) return;
+  
+  const allMessages = document.querySelectorAll('.standard-markdown');
+  
+  // Se il numero di messaggi è aumentato = nuova risposta
+  if (allMessages.length > lastMessageCount) {
+    const newMessage = allMessages[allMessages.length - 1];
+    
+    processingResponse = true;
+    console.log('⏳ Nuova risposta rilevata, attendo completamento...');
+    
+    setTimeout(() => {
+      // Estrai il testo finale
+      const paragraphs = newMessage.querySelectorAll('.font-claude-response-body, h2, h3, li, code');
+      let finalText = '';
+      
+      paragraphs.forEach(p => {
+        finalText += p.innerText + '\n';
+      });
+      
+      finalText = finalText.trim();
+      
+      if (finalText && finalText.length > 50 && finalText !== lastCapturedText) {
+        lastCapturedText = finalText;
+        lastMessageCount = allMessages.length; // Aggiorna il contatore
+        
+        console.log('📨 ✅ RISPOSTA COMPLETA CATTURATA!');
+        console.log('📏 Lunghezza:', finalText.length, 'caratteri');
+        console.log('📄 Anteprima:', finalText.substring(0, 100) + '...');
+        
+        chrome.runtime.sendMessage({
+          type: 'CLAUDE_RESPONSE',
+          text: finalText,
+          timestamp: Date.now()
+        }).then(() => {
+          console.log('✅ Messaggio inviato al background script');
+          processingResponse = false;
+        }).catch(err => {
+          console.error('❌ Errore invio:', err);
+          processingResponse = false;
+        });
+      } else {
+        processingResponse = false;
+      }
+    }, 3000);
+  }
+});
+
+observer.observe(document.body, {
+  childList: true,
+  subtree: true
+});
+
+// Inizializza il contatore con i messaggi già presenti
+lastMessageCount = document.querySelectorAll('.standard-markdown').length;
+console.log('✅ Observer attivo - messaggi esistenti:', lastMessageCount);

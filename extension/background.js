@@ -6,6 +6,13 @@
 
 console.log('🏛️ Siliceo Bridge background attivo');
 
+// Apri UI quando si clicca l'icona dell'estensione
+chrome.action.onClicked.addListener(() => {
+  chrome.tabs.create({
+    url: chrome.runtime.getURL('index.html')
+  });
+});
+
 let uiPort = null;
 
 // Connessione con UI
@@ -48,11 +55,16 @@ async function handleUIMessage(msg) {
 // Gestione messaggi da content script
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.type === 'CLAUDE_RESPONSE') {
+    console.log('📨 Risposta ricevuta da content script:', request.text.substring(0, 100));
+    
     sendToUI({
       type: 'ASSISTANT_MESSAGE',
       text: request.text,
       timestamp: request.timestamp
     });
+    
+    // IMPORTANTE: rispondi al content script
+    sendResponse({ success: true });
   }
   return true;
 });
