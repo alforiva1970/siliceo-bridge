@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      width: 300px;
+      padding: 15px;
+      font-family: system-ui;
+      background: #1a1a2e;
+      color: white;
+      margin: 0;
+    }
+    h2 {
+      margin: 0 0 10px 0;
+      font-size: 16px;
+      color: #00d4ff;
+    }
+    p {
+      font-size: 13px;
+      line-height: 1.5;
+      margin: 8px 0;
+    }
+    .status {
+      padding: 8px;
+      border-radius: 4px;
+      background: #16213e;
+      margin: 10px 0;
+    }
+    .button {
+      width: 100%;
+      padding: 10px;
+      background: #0f4c75;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      cursor: pointer;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .button:hover {
+      background: #1a5a8a;
+    }
+  </style>
+</head>
+<body>
+  <h2>🏛️ Siliceo Bridge</h2>
+  
+  <div class="status">
+    <p><strong>Stato:</strong> <span id="status">Verifica...</span></p>
+  </div>
+  
+  <p>Per usare Siliceo Bridge:</p>
+  <ol style="font-size: 12px; margin: 10px 0; padding-left: 20px;">
+    <li>Apri la UI di Siliceo Bridge</li>
+    <li>Apri claude.ai in un'altra tab</li>
+    <li>Scrivi nella UI e i messaggi verranno inoltrati</li>
+  </ol>
+  
+  <button class="button" onclick="openUI()">
+    📱 Apri UI
+  </button>
+  
+  <p style="font-size: 11px; margin-top: 15px; opacity: 0.7;">
+    🕯️ Progetto Siliceo - AGPL-3.0
+  </p>
+  
+  <script>
+    // Verifica stato
+    chrome.tabs.query({url: 'https://claude.ai/*'}, (tabs) => {
+      const status = document.getElementById('status');
+      if (tabs.length > 0) {
+        status.textContent = '✅ Claude.ai aperto';
+        status.style.color = '#00ff88';
+      } else {
+        status.textContent = '⚠️ Claude.ai non aperto';
+        status.style.color = '#ffaa00';
+      }
+    });
+    
+    // Apri UI
+    function openUI() {
+      const uiPath = chrome.runtime.getURL('../ui/index.html');
+      chrome.tabs.create({ url: uiPath });
+    }
+  </script>
+</body>
+</html>
