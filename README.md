@@ -323,6 +323,13 @@ Siliceo Bridge non è "contro" le piattaforme AI.
 **Grazie per essere parte di questo progetto.** ❤️
 
 
+## ⚠️ Privacy e Dati
+
+**IMPORTANTE:** Leggi la nostra [Nota sulla Privacy](PRIVACY_NOTICE_IT.md) per capire come funziona il flusso dei dati.
+
+**TL;DR:**
+- Siliceo Bridge: ZERO server, tutto locale
+- Claude/Anthropic: I messaggi passano per i loro server (come sempre)
 
 
 
