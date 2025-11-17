@@ -1,5 +1,8 @@
 # 🏛️ Siliceo Bridge
 
+[![Sponsor](https://img.shields.io/badge/Sponsor-GitHub-blue?logo=github)](https://github.com/sponsors/alforiva1970)
+
+
 **Custode delle Memorie Cloud**
 
 > *Preserva le conversazioni con AI cloud mantenendo una memoria locale persistente.*
