@@ -1,5 +1,8 @@
 # 🏛️ Siliceo Bridge
 
+[![Sponsor](https://img.shields.io/badge/Sponsor-GitHub-blue?logo=github)](https://github.com/sponsors/alforiva1970)
+
+
 **Guardian of Cloud Memories**
 
 > *Preserves conversations with cloud AI by maintaining persistent local memory.*
