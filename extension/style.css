@@ -65,8 +65,15 @@ body {
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
 }
 
 /* Chat */
@@ -99,6 +106,7 @@ body {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -234,9 +242,14 @@ body {
 /* Footer Actions */
 .footer-actions {
   margin-bottom: 15px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.export-button {
+.export-button,
+.import-button {
   padding: 10px 20px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border: none;
@@ -248,16 +261,19 @@ body {
   font-family: inherit;
 }
 
-.export-button:hover {
+.export-button:hover,
+.import-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
 }
 
-.export-button:active {
+.export-button:active,
+.import-button:active {
   transform: translateY(0);
 }
 
-.export-button:disabled {
+.export-button:disabled,
+.import-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }

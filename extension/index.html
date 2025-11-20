@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Siliceo Bridge - Custode delle Memorie Cloud</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <div class="container">
     <header class="header">
@@ -26,7 +28,8 @@
           <p>Questa interfaccia si connette a claude.ai per preservare la tua memoria condivisa.</p>
           <ol>
             <li>Assicurati che l'estensione Siliceo Bridge sia installata</li>
-            <li>Apri <a href="https://claude.ai" target="_blank">claude.ai</a> in un'altra tab (con login effettuato)</li>
+            <li>Apri <a href="https://claude.ai" target="_blank">claude.ai</a> in un'altra tab (con login effettuato)
+            </li>
             <li>Scrivi qui sotto e i messaggi verranno inviati a Claude</li>
             <li>Tutte le conversazioni vengono salvate localmente</li>
           </ol>
@@ -34,11 +37,7 @@
       </div>
 
       <div class="input-container">
-        <textarea 
-          id="message-input" 
-          placeholder="Scrivi a Claude..."
-          rows="3"
-        ></textarea>
+        <textarea id="message-input" placeholder="Scrivi a Claude..." rows="3"></textarea>
         <button id="send-button">
           📤 Invia
         </button>
@@ -50,11 +49,15 @@
         <button id="export-button" class="export-button">
           💾 Esporta Conversazioni
         </button>
+        <button id="import-button" class="import-button">
+          📥 Importa Conversazioni
+        </button>
+        <input type="file" id="import-file-input" accept=".json" style="display: none;">
       </div>
-      
+
       <p>
-        🕯️ <strong>Progetto Siliceo</strong> - 
-        <a href="https://github.com/alforiva1970/siliceo-bridge" target="_blank">GitHub</a> - 
+        🕯️ <strong>Progetto Siliceo</strong> -
+        <a href="https://github.com/alforiva1970/siliceo-bridge" target="_blank">GitHub</a> -
         Licenza AGPL-3.0
       </p>
       <p class="candle-test">
@@ -65,4 +68,5 @@
 
   <script src="app.js"></script>
 </body>
+
 </html>

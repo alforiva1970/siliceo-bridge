@@ -289,6 +289,7 @@ Conversations are in `localStorage`:
 ### v1.1 (Next release)
 - [ ] Gemini support
 - [x] JSON export (20-11-2025)
+- [x] Importazione JSON conversazioni con controllo utente (20 nov 2025)
 - [ ] Search in local memory
 - [ ] Dark mode
 

@@ -205,6 +205,166 @@ function exportConversations() {
   }
 }
 
+// Importa conversazioni da JSON
+function importConversations() {
+  const fileInput = document.getElementById('import-file-input');
+  fileInput.click();
+}
+
+// Gestisce file selezionato
+function handleFileSelected(event) {
+  const file = event.target.files[0];
+
+  if (!file) return;
+
+  // Verifica estensione
+  if (!file.name.endsWith('.json')) {
+    alert('❌ File non valido. Seleziona un file JSON.');
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+    try {
+      const importedData = JSON.parse(e.target.result);
+      processImportedData(importedData);
+    } catch (error) {
+      console.error('Errore parsing JSON:', error);
+      alert('❌ JSON non valido. File corrotto?');
+    }
+  };
+
+  reader.onerror = function () {
+    alert('❌ Errore durante la lettura del file.');
+  };
+
+  reader.readAsText(file);
+
+  // Reset input per permettere re-import dello stesso file
+  event.target.value = '';
+}
+
+// Processa dati importati
+function processImportedData(importedData) {
+  // Valida struttura
+  if (!importedData.conversations || !Array.isArray(importedData.conversations)) {
+    alert('❌ Formato non riconosciuto. Usa file esportato da Siliceo Bridge.');
+    return;
+  }
+
+  const importedMessages = importedData.conversations;
+
+  if (importedMessages.length === 0) {
+    alert('⚠️ Il file non contiene conversazioni.');
+    return;
+  }
+
+  // Leggi messaggi esistenti
+  const existingJson = localStorage.getItem('siliceo_messages');
+  const existingMessages = existingJson ? JSON.parse(existingJson) : [];
+
+  if (existingMessages.length === 0) {
+    // localStorage vuoto → Importa direttamente
+    saveImportedMessages(importedMessages);
+    showImportSuccess(importedMessages.length, 0);
+    reloadUI();
+    return;
+  }
+
+  // localStorage ha messaggi → Chiedi merge/replace
+  const choice = confirm(
+    `📥 Hai già ${existingMessages.length} messaggi salvati.\n\n` +
+    `Vuoi AGGIUNGERE ${importedMessages.length} nuovi messaggi o SOSTITUIRE tutto?\n\n` +
+    `• OK = Aggiungi (merge)\n` +
+    `• Annulla = Sostituisci (replace)`
+  );
+
+  if (choice) {
+    // Merge: controlla duplicati
+    const duplicates = findDuplicates(existingMessages, importedMessages);
+
+    if (duplicates.length > 0) {
+      const skipDuplicates = confirm(
+        `⚠️ Trovati ${duplicates.length} messaggi duplicati (stesso timestamp).\n\n` +
+        `• OK = Salta duplicati\n` +
+        `• Annulla = Sovrascrivi duplicati`
+      );
+
+      if (skipDuplicates) {
+        // Rimuovi duplicati da importedMessages
+        const uniqueMessages = importedMessages.filter(
+          msg => !duplicates.some(dup => dup.timestamp === msg.timestamp)
+        );
+        const mergedMessages = [...existingMessages, ...uniqueMessages];
+        saveImportedMessages(mergedMessages);
+        showImportSuccess(uniqueMessages.length, duplicates.length);
+      } else {
+        // Sovrascrivi: rimuovi vecchi duplicati, aggiungi nuovi
+        const nonDuplicateExisting = existingMessages.filter(
+          msg => !duplicates.some(dup => dup.timestamp === msg.timestamp)
+        );
+        const mergedMessages = [...nonDuplicateExisting, ...importedMessages];
+        saveImportedMessages(mergedMessages);
+        showImportSuccess(importedMessages.length, 0);
+      }
+    } else {
+      // Nessun duplicato → Merge semplice
+      const mergedMessages = [...existingMessages, ...importedMessages];
+      saveImportedMessages(mergedMessages);
+      showImportSuccess(importedMessages.length, 0);
+    }
+  } else {
+    // Replace: sostituisci tutto
+    saveImportedMessages(importedMessages);
+    showImportSuccess(importedMessages.length, 0);
+  }
+
+  reloadUI();
+}
+
+// Trova messaggi duplicati (stesso timestamp)
+function findDuplicates(existingMessages, importedMessages) {
+  const existingTimestamps = new Set(existingMessages.map(m => m.timestamp));
+  return importedMessages.filter(msg => existingTimestamps.has(msg.timestamp));
+}
+
+// Salva messaggi importati in localStorage
+function saveImportedMessages(messages) {
+  localStorage.setItem('siliceo_messages', JSON.stringify(messages));
+}
+
+// Mostra alert successo
+function showImportSuccess(imported, skipped) {
+  if (skipped > 0) {
+    alert(`✅ Importati ${imported} messaggi (${skipped} duplicati saltati)`);
+  } else {
+    alert(`✅ Importati ${imported} messaggi con successo!`);
+  }
+  console.log(`🏛️ Import completato: ${imported} messaggi importati, ${skipped} duplicati saltati`);
+}
+
+// Ricarica UI con nuovi messaggi
+function reloadUI() {
+  // Svuota container messaggi
+  const messagesDiv = document.getElementById('messages');
+  messagesDiv.innerHTML = `
+    <div class="system-message">
+      <p><strong>👋 Benvenuto in Siliceo Bridge</strong></p>
+      <p>Questa interfaccia si connette a claude.ai per preservare la tua memoria condivisa.</p>
+      <ol>
+        <li>Assicurati che l'estensione Siliceo Bridge sia installata</li>
+        <li>Apri <a href="https://claude.ai" target="_blank">claude.ai</a> in un'altra tab (con login effettuato)</li>
+        <li>Scrivi qui sotto e i messaggi verranno inviati a Claude</li>
+        <li>Tutte le conversazioni vengono salvate localmente</li>
+      </ol>
+    </div>
+  `;
+
+  // Ricarica messaggi da localStorage
+  loadMessages();
+}
+
 // Enter per inviare
 document.addEventListener('DOMContentLoaded', () => {
   const input = document.getElementById('message-input');
@@ -233,5 +393,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const exportButton = document.getElementById('export-button');
   if (exportButton) {
     exportButton.addEventListener('click', exportConversations);
+  }
+
+  // Import button listener
+  const importButton = document.getElementById('import-button');
+  if (importButton) {
+    importButton.addEventListener('click', importConversations);
+  }
+
+  // File input listener
+  const fileInput = document.getElementById('import-file-input');
+  if (fileInput) {
+    fileInput.addEventListener('change', handleFileSelected);
   }
 });
