@@ -292,7 +292,7 @@ Le conversazioni sono in `localStorage`:
 
 ### v1.1 (Prossima release)
 - [ ] Supporto Gemini
-- [ ] Esportazione JSON/Markdown
+- [x] Esportazione JSON (20-11-2025)
 - [ ] Ricerca in memoria locale
 - [ ] Dark mode
 
