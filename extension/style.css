@@ -24,8 +24,7 @@ body {
   background: rgba(0, 0, 0, 0.3);
   padding: 20px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -33,16 +32,60 @@ body {
   font-size: 24px;
   margin-bottom: 5px;
   color: #00d4ff;
+  text-align: center;
 }
 
 .subtitle {
   font-size: 14px;
   color: #aaa;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Model Selector */
+.model-selector {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 15px 0 10px 0;
+}
+
+.model-button {
+  padding: 8px 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.model-button.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #667eea;
+  box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+}
+
+.model-button:hover:not(.active) {
+  border-color: #667eea;
+  background: rgba(102, 126, 234, 0.1);
+}
+
+/* Model Indicator */
+.model-indicator {
+  text-align: center;
+  font-size: 13px;
+  color: #00d4ff;
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 
 .status {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   font-size: 14px;
 }
@@ -270,28 +313,4 @@ body {
 .export-button:active,
 .import-button:active {
   transform: translateY(0);
-}
-
-.export-button:disabled,
-.import-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.2);
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.5);
 }

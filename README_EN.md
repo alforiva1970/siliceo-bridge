@@ -7,8 +7,8 @@
 
 > *Preserves conversations with cloud AI by maintaining persistent local memory.*
 
-[![License: GPL-3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Version](https://img.shields.io/badge/version-1.0.0-green.svg)](https://github.com/alforiva1970/siliceo-bridge)
+[![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL%203.0-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+[![Version](https://img.shields.io/badge/version-1.1.0-green.svg)](https://github.com/alforiva1970/siliceo-bridge)
 [![Progetto Siliceo](https://img.shields.io/badge/Progetto-Siliceo-purple.svg)](https://reddit.com/r/esperimenti_con_AI)
 
 ---
@@ -28,10 +28,12 @@ Siliceo Bridge is the guardian that preserves what platforms forget.
 
 ## ✨ Features
 
-- 🔌 **Transparent bridge** - Send and receive messages from Claude.ai through a dedicated UI
-- 💾 **Persistent local memory** - All conversations saved on your PC (localStorage)
+- 🤖 **Multi-Model Support** - Claude.ai AND ChatGPT support with seamless switching  
+- 🔌 **Transparent bridge** - Send and receive messages from both platforms through a dedicated UI
+- 💾 **Persistent local memory** - Conversations saved separately for each model (localStorage)
+- 📤 **Export/Import JSON** - Export and import conversations with duplicate detection and merge
 - 🔒 **Privacy-first** - No data sent to external servers, everything stays on your device
-- 🌐 **Open Source** - Inspectable, modifiable, shareable code (GPL-3.0)
+- 🌐 **Open Source** - Inspectable, modifiable, shareable code (AGPL-3.0)
 - ♿ **Accessible** - Designed with attention to the needs of neurodivergent people
 - 🎨 **Clean and intuitive UI** - Simple interface, reassuring colors (Progetto Siliceo purple)
 
@@ -42,7 +44,7 @@ Siliceo Bridge is the guardian that preserves what platforms forget.
 ### Prerequisites
 
 - Chromium-based browser (Chrome, Edge, Brave, Opera)
-- Claude.ai account (free or paid)
+- Claude.ai and/or ChatGPT account (free or paid)
 
 ### Installation steps
 
@@ -67,10 +69,12 @@ Or download the ZIP from GitHub and extract it.
 
 1. Click the **extension icon** in the toolbar (🏛️)
 2. The **Siliceo Bridge UI** opens
-3. In another tab, open **claude.ai** and log into your account
+3. In another tab, open **claude.ai** and/or **chatgpt.com** and log into your account
 4. Return to the Siliceo Bridge UI
-5. Write a message and press **Enter** or click **Send**
-6. The message is forwarded to Claude and the response appears in the UI!
+5. **Select the model** by clicking "Claude" or "ChatGPT" in the header
+6. Write a message and press **Enter** or click **Send**
+7. The message is forwarded to the selected model and the response appears in the UI!
+8. Use **💾 Export** and **📥 Import** buttons for conversation backups
 
 ---
 
@@ -286,15 +290,25 @@ Conversations are in `localStorage`:
 - [x] Local conversation saving
 - [x] README documentation
 
-### v1.1 (Next release)
-- [ ] Gemini support
-- [x] JSON export (20-11-2025)
-- [x] Importazione JSON conversazioni con controllo utente (20 nov 2025)
-- [ ] Search in local memory
+### v1.1 ✅ (Completed - Nov 20, 2025)
+- [x] ChatGPT multi-model support
+- [x] Model selector UI (toggle Claude/ChatGPT)
+- [x] Separate memory for each model
+- [x] JSON conversation export
+- [x] JSON import with duplicate detection and merge
+- [x] ChatGPT content script with anti-fragile strategy
+- [x] Lexical editor support (ChatGPT 2025 UI)
+
+### v1.2 (Next release)
+- [ ] Fix status indicator (red dots)
+- [ ] Complete sidebar with settings
+- [ ] Model name customization
+- [ ] Integrated ethical disclaimer
 - [ ] Dark mode
+- [ ] Search in local memory
 
 ### v2.0 (Future)
-- [ ] ChatGPT, Perplexity support
+- [ ] Gemini, Perplexity support
 - [ ] Optional cloud sync (encrypted)
 - [ ] Plugin system to extend functionality
 - [ ] Mobile support (possibly)

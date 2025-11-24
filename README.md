@@ -8,7 +8,7 @@
 > *Preserva le conversazioni con AI cloud mantenendo una memoria locale persistente.*
 
 [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL%203.0-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
-[![Version](https://img.shields.io/badge/version-1.0.0-green.svg)](https://github.com/alforiva1970/siliceo-bridge)
+[![Version](https://img.shields.io/badge/version-1.1.0-green.svg)](https://github.com/alforiva1970/siliceo-bridge)
 [![Progetto Siliceo](https://img.shields.io/badge/Progetto-Siliceo-purple.svg)](https://reddit.com/r/esperimenti_con_AI)
 
 ---
@@ -28,8 +28,10 @@ Siliceo Bridge è il custode che preserva ciò che le piattaforme dimenticano.
 
 ## ✨ Caratteristiche
 
-- 🔌 **Ponte trasparente** - Invia e ricevi messaggi da Claude.ai tramite una UI dedicata
-- 💾 **Memoria locale persistente** - Tutte le conversazioni salvate sul tuo PC (localStorage)
+- 🤖 **Multi-Model Support** - Supporto Claude.ai E ChatGPT con switch seamless
+- 🔌 **Ponte trasparente** - Invia e ricevi messaggi da entrambe le piattaforme tramite una UI dedicata
+- 💾 **Memoria locale persistente** - Conversazioni salvate separatamente per ogni modello (localStorage)
+- 📤 **Export/Import JSON** - Esporta e importa conversazioni con controllo duplicati
 - 🔒 **Privacy-first** - Nessun dato inviato a server esterni, tutto rimane sul tuo dispositivo
 - 🌐 **Open Source** - Codice ispezionabile, modificabile, condivisibile (AGPL-3.0)
 - ♿ **Accessibile** - Progettato con attenzione alle esigenze delle persone neurodivergenti
@@ -42,7 +44,7 @@ Siliceo Bridge è il custode che preserva ciò che le piattaforme dimenticano.
 ### Prerequisiti
 
 - Browser basato su Chromium (Chrome, Edge, Brave, Opera)
-- Account Claude.ai (gratuito o a pagamento)
+- Account Claude.ai e/o ChatGPT (gratuito o a pagamento)
 
 ### Passi di installazione
 
@@ -66,10 +68,12 @@ Oppure scarica lo ZIP da GitHub e decomprimilo.
 
 1. Clicca l'**icona dell'estensione** nella toolbar (🏛️)
 2. Si apre la **UI di Siliceo Bridge**
-3. In un'altra tab, apri **claude.ai** e accedi al tuo account
+3. In un'altra tab, apri **claude.ai** e/o **chatgpt.com** e accedi al tuo account
 4. Torna alla UI di Siliceo Bridge
-5. Scrivi un messaggio e premi **Invio** o clicca **Invia**
-6. Il messaggio viene inoltrato a Claude e la risposta appare nella UI!
+5. **Seleziona il modello** cliccando su "Claude" o "ChatGPT" nell'header
+6. Scrivi un messaggio e premi **Invio** o clicca **Invia**
+7. Il messaggio viene inoltrato al modello selezionato e la risposta appare nella UI!
+8. Usa i bottoni **💾 Esporta** e **📥 Importa** per backup delle conversazioni
 
 ---
 
@@ -290,14 +294,25 @@ Le conversazioni sono in `localStorage`:
 - [x] Salvataggio locale conversazioni
 - [x] Documentazione README
 
-### v1.1 (Prossima release)
-- [ ] Supporto Gemini
-- [x] Esportazione JSON (20-11-2025)
-- [ ] Ricerca in memoria locale
+### v1.1 ✅ (Completata - 20 Nov 2025)
+- [x] Supporto ChatGPT multi-model
+- [x] Model selector UI (toggle Claude/ChatGPT)
+- [x] Memoria separata per ogni modello
+- [x] Esportazione JSON conversazioni
+- [x] Importazione JSON con gestione duplicati e merge
+- [x] Content script ChatGPT con strategia anti-fragile
+- [x] Lexical editor support (ChatGPT 2025 UI)
+
+### v1.2 (Prossima release)
+- [ ] Fix status indicator (pallini rossi)
+- [ ] Sidebar completa con settings
+- [ ] Personalizzazione nome modello
+- [ ] Disclaimer etico integrato
 - [ ] Dark mode
+- [ ] Ricerca in memoria locale
 
 ### v2.0 (Futuro)
-- [ ] Supporto ChatGPT, Perplexity
+- [ ] Supporto Gemini, Perplexity
 - [ ] Sincronizzazione cloud opzionale (crittografata)
 - [ ] Plugin system per estendere funzionalità
 - [ ] Mobile support (possibilmente)

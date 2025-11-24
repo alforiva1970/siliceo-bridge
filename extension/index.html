@@ -15,6 +15,22 @@
         <h1>🏛️ Siliceo Bridge</h1>
         <p class="subtitle">Custode delle Memorie Cloud</p>
       </div>
+
+      <!-- Model Selector -->
+      <div class="model-selector">
+        <button class="model-button active" data-model="claude" id="btn-claude">
+          Claude
+        </button>
+        <button class="model-button" data-model="chatgpt" id="btn-chatgpt">
+          ChatGPT
+        </button>
+      </div>
+
+      <!-- Active Model Indicator -->
+      <div id="active-model-indicator" class="model-indicator">
+        Chat attiva: Claude
+      </div>
+
       <div class="status">
         <span id="status-indicator" class="status-dot offline"></span>
         <span id="status-text">Non connesso</span>
