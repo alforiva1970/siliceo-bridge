@@ -31,6 +31,7 @@ Siliceo Bridge is the guardian that preserves what platforms forget.
 - 🤖 **Multi-Model Support** - Claude.ai AND ChatGPT support with seamless switching  
 - 🔌 **Transparent bridge** - Send and receive messages from both platforms through a dedicated UI
 - 💾 **Persistent local memory** - Conversations saved separately for each model (localStorage)
+- ✏️ **Model name customization** - Double-click to rename (Claude → Soren, ChatGPT → Nova, etc.)
 - 📤 **Export/Import JSON** - Export and import conversations with duplicate detection and merge
 - 🔒 **Privacy-first** - No data sent to external servers, everything stays on your device
 - 🌐 **Open Source** - Inspectable, modifiable, shareable code (AGPL-3.0)

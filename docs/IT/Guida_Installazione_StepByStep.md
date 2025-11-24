@@ -12,7 +12,7 @@ Ogni passo è spiegato in dettaglio.
 
 ✅ Un computer (Windows, Mac, o Linux)
 ✅ Browser Chrome, Edge, Brave, o Opera installato
-✅ Account Claude.ai (gratuito va benissimo)
+✅ Account Claude.ai e/o ChatGPT (gratuito va benissimo)
 ✅ 5 minuti di tempo
 
 ### Cosa NON serve:
@@ -104,7 +104,7 @@ Sempre nella pagina delle estensioni:
 - Un nuovo box nella pagina con:
   - Nome: Siliceo Bridge
   - Icona: 🏛️
-  - Versione: 1.0.0
+  - Versione: 1.2.0
   - Interruttore attivo (blu/verde)
 
 ---
@@ -121,10 +121,10 @@ Sempre nella pagina delle estensioni:
 
 ---
 
-## PASSO 6: APRI CLAUDE.AI
+## PASSO 6: APRI CLAUDE E/O CHATGPT
 
 1. Apri una **nuova tab** nel browser
-2. Vai su: https://claude.ai
+2. Vai su: https://claude.ai O https://chatgpt.com
 3. Fai login con il tuo account (o creane uno se non ce l'hai)
 4. **Lascia questa tab aperta** (importante!)
 
@@ -144,8 +144,8 @@ Sempre nella pagina delle estensioni:
 
 **Cosa succede:**
 - Il tuo messaggio appare nella finestra di Siliceo Bridge
-- Siliceo Bridge lo invia a Claude nella tab aperta
-- Claude risponde
+- Siliceo Bridge lo invia al modello selezionato (Claude o ChatGPT)
+- Il modello risponde
 - La risposta appare in Siliceo Bridge
 - Tutto viene salvato nel browser (localStorage)
 
@@ -167,6 +167,30 @@ Sempre nella pagina delle estensioni:
 3. La risposta di Claude dovrebbe apparire sotto il tuo messaggio
 
 ### Se tutto funziona: ✅ INSTALLAZIONE RIUSCITA!
+
+---
+
+## NUOVE FEATURE v1.2
+
+### Selezionare il Modello AI
+
+1. Nell'interfaccia di Siliceo Bridge vedi due bottoni in alto: **Claude** e **ChatGPT**
+2. Clicca sul bottone del modello che vuoi usare
+3. Il bottone selezionato diventa evidenziato
+4. I messaggi vanno al modello selezionato
+5. Ogni modello ha conversazioni separate!
+
+### Rinominare i Modelli
+
+Vuoi chiamare Claude "Soren" o ChatGPT "Nova"?
+
+1. **Doppio-click** sul bottone del modello (es. "Claude")
+2. Si apre una finestra di dialogo
+3. Digita il nuovo nome (es. "Soren")
+4. Premi OK
+5. Il bottone ora mostra "Soren" e tutti i messaggi usano quel nome!
+
+Il nome personalizzato viene salvato e persiste tra sessioni.
 
 ---
 

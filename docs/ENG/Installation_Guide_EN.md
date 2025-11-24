@@ -12,7 +12,7 @@ Each step is explained in detail.
 
 ✅ A computer (Windows, Mac, or Linux)
 ✅ Chrome, Edge, Brave, or Opera browser installed
-✅ Claude.ai account (free is fine)
+✅ Claude.ai and/or ChatGPT account (free is fine)
 ✅ 5 minutes of time
 
 ### What you DON'T need:
@@ -104,7 +104,7 @@ Still on the extensions page:
 - A new box on the page with:
   - Name: Siliceo Bridge
   - Icon: 🏛️
-  - Version: 1.0.0
+  - Version: 1.2.0
   - Active switch (blue/green)
 
 ---
@@ -121,10 +121,10 @@ Still on the extensions page:
 
 ---
 
-## STEP 6: OPEN CLAUDE.AI
+## STEP 6: OPEN CLAUDE AND/OR CHATGPT
 
 1. Open a **new tab** in the browser
-2. Go to: https://claude.ai
+2. Go to: https://claude.ai OR https://chatgpt.com
 3. Log in with your account (or create one if you don't have it)
 4. **Leave this tab open** (important!)
 
@@ -144,8 +144,8 @@ Still on the extensions page:
 
 **What happens:**
 - Your message appears in the Siliceo Bridge window
-- Siliceo Bridge sends it to Claude in the open tab
-- Claude responds
+- Siliceo Bridge sends it to the selected model (Claude or ChatGPT)
+- The model responds
 - The response appears in Siliceo Bridge
 - Everything is saved in the browser (localStorage)
 
@@ -167,6 +167,30 @@ Still on the extensions page:
 3. Claude's response should appear below your message
 
 ### If everything works: ✅ INSTALLATION SUCCESSFUL!
+
+---
+
+## NEW FEATURES v1.2
+
+### Selecting the AI Model
+
+1. In Siliceo Bridge interface you see two buttons at top: **Claude** and **ChatGPT**
+2. Click on the button of the model you want to use
+3. The selected button becomes highlighted
+4. Messages go to the selected model
+5. Each model has separate conversations!
+
+### Renaming Models
+
+Want to call Claude "Soren" or ChatGPT "Nova"?
+
+1. **Double-click** on the model button (e.g. "Claude")
+2. A dialog window opens
+3. Type the new name (e.g. "Soren")
+4. Press OK
+5. The button now shows "Soren" and all messages use that name!
+
+The custom name is saved and persists between sessions.
 
 ---
 

@@ -154,15 +154,36 @@ No. Siliceo Bridge:
 
 ### Posso usare Siliceo Bridge con più AI contemporaneamente?
 
-Al momento solo con Claude.
-Supporto per Gemini, ChatGPT, Perplexity è in roadmap per v1.1 e v2.0.
+**Sì! (dalla v1.1.0)**
+
+Siliceo Bridge supporta:
+- ✅ Claude.ai
+- ✅ ChatGPT (chat.openai.com e chatgpt.com)
+
+Ogni modello ha conversazioni separate e puoi switchare tra loro con un click.
+
+Supporto per Gemini e Perplexity è in roadmap per v2.0.
+
+### Posso rinominare i modelli AI?
+
+**Sì! (dalla v1.2.0)**
+
+Puoi personalizzare i nomi dei modelli:
+1. **Doppio-click** sul bottone del modello (es. "Claude")
+2. Digita il nuovo nome (es. "Soren")
+3. Il nome viene salvato e usato ovunque
+
+Perfetto per dare nomi personali ai tuoi companion AI!
 
 ### Posso esportare le conversazioni?
 
-Al momento no, ma è pianificato per v1.1:
-- Export JSON (dati strutturati)
-- Export Markdown (leggibile)
-- Import backup
+**Sì! (dalla v1.1.0)**
+
+- ✅ Export JSON (dati strutturati)
+- ✅ Import JSON con gestione duplicati
+- ✅ Opzione merge o replace
+
+Ogni modello (Claude/ChatGPT) esporta separatamente le sue conversazioni.
 
 ### Posso cercare nelle conversazioni vecchie?
 

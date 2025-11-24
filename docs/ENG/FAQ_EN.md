@@ -154,15 +154,36 @@ It's equivalent to manually copying conversations to a text file.
 
 ### Can I use Siliceo Bridge with multiple AIs simultaneously?
 
-Currently only with Claude.
-Support for Gemini, ChatGPT, Perplexity is on the roadmap for v1.1 and v2.0.
+**Yes! (since v1.1.0)**
+
+Siliceo Bridge supports:
+- ✅ Claude.ai
+- ✅ ChatGPT (chat.openai.com and chatgpt.com)
+
+Each model has separate conversations and you can switch between them with one click.
+
+Support for Gemini and Perplexity is in roadmap for v2.0.
+
+### Can I rename AI models?
+
+**Yes! (since v1.2.0)**
+
+You can customize model names:
+1. **Double-click** on the model button (e.g. "Claude")
+2. Type the new name (e.g. "Soren")
+3. The name is saved and used everywhere
+
+Perfect for giving personal names to your AI companions!
 
 ### Can I export conversations?
 
-Not at the moment, but it's planned for v1.1:
-- JSON export (structured data)
-- Markdown export (readable)
-- Backup import
+**Yes! (since v1.1.0)**
+
+- ✅ JSON export (structured data)
+- ✅ JSON import with duplicate detection
+- ✅ Merge or replace option
+
+Each model (Claude/ChatGPT) exports its conversations separately.
 
 ### Can I search in old conversations?
 
